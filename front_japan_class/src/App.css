@@ -7,6 +7,9 @@ body {
   font-family: "Noto Sans JP", sans-serif;
   font-size: 14px;
   line-height: 1.6;
-  background-color: #1b1b1b;
+  background-color: #9d9d9d;
   color: #f4f4f4;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }

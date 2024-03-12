@@ -1,10 +1,15 @@
 import "./App.css";
+import { Canvas } from "@react-three/fiber";
+import { OrbitControls } from "@react-three/drei";
+import ImageBackground from "./components/ImageBackground";
 
 function App() {
   return (
-    <>
-      <h1>japan_class</h1>
-    </>
+    <Canvas>
+      <ambientLight />
+      <OrbitControls />
+      <ImageBackground />
+    </Canvas>
   );
 }
 
