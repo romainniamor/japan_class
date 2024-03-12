@@ -1,0 +1,12 @@
+*,
+html,
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  background-color: #1b1b1b;
+  color: #f4f4f4;
+}
