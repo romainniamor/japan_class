@@ -1,10 +1,22 @@
 import "./App.css";
+// import { Canvas } from "@react-three/fiber";
+// import { OrbitControls } from "@react-three/drei";
+// import ImageBackground from "./components/ImageBackground";
+import LoginPage from "./pages/loginPage/LoginPage";
+import ClassPage from "./pages/classPage/ClassPage";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   return (
-    <>
-      <h1>japan_class</h1>
-    </>
+    <Routes>
+      <Route path="/" element={<LoginPage />} />
+      <Route path="/class/:user" element={<ClassPage />} />
+    </Routes>
+    // <Canvas>
+    //   <ambientLight />
+    //   <OrbitControls />
+    //   <ImageBackground />
+    // </Canvas>
   );
 }
 
