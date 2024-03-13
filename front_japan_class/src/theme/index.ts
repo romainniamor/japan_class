@@ -15,8 +15,8 @@ const colors = {
 
 //background with opacity
 const transparentBackground = {
-  semiTransparent: "rgba(209, 213, 219, .3)",
-  semiOpaque: "rgba(209, 213, 219, .3)",
+  light: "rgba(209, 213, 219, .3)",
+  medium: "rgba(209, 213, 219, .4)",
 };
 
 const spacing = {
