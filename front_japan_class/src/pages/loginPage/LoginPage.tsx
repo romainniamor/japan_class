@@ -1,6 +1,9 @@
 import styled from "styled-components";
 import { theme } from "../../theme/index";
 import { FaArrowCircleDown } from "react-icons/fa";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import Title from "./Title";
 import MessageIcon from "../../components/reusablesUi/MessageIcon";
 import LoginForm from "./LoginForm";
@@ -14,6 +17,18 @@ export default function LoginPage() {
         <MessageIcon label={"log to classroom"} icon={<FaArrowCircleDown />} />
         <LoginForm />
       </div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover={false}
+        theme="light"
+      />
     </LoginPageStyled>
   );
 }
