@@ -28,6 +28,6 @@ const TitleStyled = styled.div`
 
   hr {
     width: 60%;
-    border: 1px solid ${theme.transparentBackground.semiOpaque};
+    border: 1px solid ${theme.transparentBackground.light};
   }
 `;

@@ -4,17 +4,37 @@ import { FaArrowCircleDown } from "react-icons/fa";
 import Title from "./Title";
 import MessageIcon from "../../components/reusablesUi/MessageIcon";
 import Button from "../../components/reusablesUi/Button";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function LoginPage() {
+  const [pseudo, setPseudo] = useState("");
+  const navigate = useNavigate();
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (pseudo) {
+      navigate(`/class/${pseudo}`);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPseudo(e.target.value);
+  };
+
   return (
     <LoginPageStyled>
       <img className="bg" src="japan_class.png" alt="japan_class" />
       <div className="content">
         <Title />
         <MessageIcon label={"log to classroom"} icon={<FaArrowCircleDown />} />
-        <form action="">
-          <input type="text" placeholder="Your Pseudo..." />
-          <Button label={"enter"} onClick={() => {}} />
+        <form onSubmit={handleSubmit}>
+          <input
+            value={pseudo}
+            onChange={handleChange}
+            type="text"
+            placeholder="Your Pseudo..."
+          />
+          <Button label={"enter"} />
         </form>
       </div>
     </LoginPageStyled>

@@ -3,7 +3,7 @@ import { theme } from "../../theme/index";
 
 type ButtonProps = {
   label: string;
-  onClick: () => void;
+  onClick?: () => void;
 };
 
 export default function Button({ label, onClick }: ButtonProps) {
