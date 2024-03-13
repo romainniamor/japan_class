@@ -11,6 +11,8 @@ const colors = {
   grayMedium: "#6b7280",
   graySemiDark: "#374151",
   greyDark: "#1f2937",
+
+  green: "#34d399",
 };
 
 //background with opacity

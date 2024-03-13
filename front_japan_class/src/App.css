@@ -12,11 +12,8 @@ body {
   width: 100vw;
   overflow: hidden;
   font-family: "Noto Sans JP", sans-serif;
-  font-weight: 500;
+
   background-color: #1e1e1e;
-  color: #f4f4f4;
-  font-size: 15px;
-  line-height: 1.6;
 }
 
 #root {

@@ -15,7 +15,7 @@ const IconButtonStyled = styled.button`
   display: flex;
   justify-content: center;
   border-radius: ${theme.borderRadius.circle};
-  padding: 8px;
+  padding: 5px;
   border: 1px solid transparent;
   background-color: ${theme.transparentBackground.light};
   cursor: pointer;

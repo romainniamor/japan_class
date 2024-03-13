@@ -1,21 +1,21 @@
 import styled from "styled-components";
 import { theme } from "../../theme/index";
-import { Link, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { IoMdExit } from "react-icons/io";
 import IconButton from "../../components/reusablesUi/IconButton";
+import Profile from "./Profile";
 import { useState } from "react";
 import { IoMdVolumeOff } from "react-icons/io";
 import { IoVolumeHigh } from "react-icons/io5";
 
 export default function Navbar() {
-  const { user } = useParams();
   const [volume, setVolume] = useState(true);
   const toggleVolume = () => {
     setVolume(!volume);
   };
   return (
     <NavbarStyled>
-      <span>Hi {user}</span>
+      <Profile />
       <div className="icon-box">
         <IconButton
           icon={volume ? <IoVolumeHigh /> : <IoMdVolumeOff />}

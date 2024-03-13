@@ -5,12 +5,14 @@ type TextInputProps = {
   value: string;
   placeholder: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  maxLength?: number;
 };
 
 export default function TextInput({
   value,
   placeholder,
   onChange,
+  maxLength = 5,
 }: TextInputProps) {
   return (
     <TextInputStyled
@@ -18,6 +20,7 @@ export default function TextInput({
       type="text"
       placeholder={placeholder}
       onChange={onChange}
+      maxLength={maxLength}
     ></TextInputStyled>
   );
 }

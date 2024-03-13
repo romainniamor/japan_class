@@ -66,5 +66,8 @@ const LoginPageStyled = styled.div`
     text-align: center;
     gap: ${theme.spacing.s};
     box-shadow: ${theme.shadows.subtle};
+    line-height: 1.6;
+    font-weight: ${theme.weights.medium};
+    color: ${theme.colors.white};
   }
 `;
