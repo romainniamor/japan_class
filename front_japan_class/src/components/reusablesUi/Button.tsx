@@ -23,4 +23,8 @@ const ButtonStyled = styled.button`
     background-color: ${theme.transparentBackground.medium};
     border: 1px solid ${theme.colors.grayLight};
   }
+
+  &:active {
+    background-color: ${theme.transparentBackground.light};
+  }
 `;
