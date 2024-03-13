@@ -6,6 +6,7 @@ export default function ImageBackground() {
 
   return (
     <mesh>
+      <ambientLight />
       <Plane args={[35, 25]}>
         <meshPhongMaterial attach="material" map={texture} />
       </Plane>

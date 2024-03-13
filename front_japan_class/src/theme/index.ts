@@ -2,15 +2,21 @@ const colors = {
   dark: "#020617",
   white: "#f1f5f9",
   slate: "#64748b",
-  slateMedium: "475569",
-  slateSemiDark: "334155",
-  slateDark: "1e293b",
+  slateMedium: "#475569",
+  slateSemiDark: "#334155",
+  slateDark: "#1e293b",
 
   gray: "#9ca3af",
   grayLight: "#d1d5db",
-  grayMedium: "6b7280",
+  grayMedium: "#6b7280",
   graySemiDark: "#374151",
   greyDark: "#1f2937",
+};
+
+//background with opacity
+const transparentBackground = {
+  semiTransparent: "rgba(209, 213, 219, .3)",
+  semiOpaque: "rgba(209, 213, 219, .3)",
 };
 
 const spacing = {
@@ -61,9 +67,9 @@ const weights = {
 };
 
 const blur = {
-  light: "3px",
-  medium: "5px",
-  strong: "10px",
+  light: "blur(3px)",
+  medium: "blur(5px)",
+  strong: "blur(10px)",
 };
 
 export const theme = {
@@ -74,4 +80,5 @@ export const theme = {
   weights,
   spacing,
   blur,
+  transparentBackground,
 };
