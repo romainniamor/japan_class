@@ -21,7 +21,6 @@ const ButtonStyled = styled.button`
 
   &:hover {
     background-color: ${theme.transparentBackground.medium};
-    border: 1px solid ${theme.colors.grayLight};
   }
 
   &:active {
