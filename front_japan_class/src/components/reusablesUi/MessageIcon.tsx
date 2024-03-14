@@ -23,4 +23,5 @@ const MessageIconStyled = styled.div`
   gap: ${theme.spacing.xxs};
   text-transform: uppercase;
   letter-spacing: ${theme.spacing.xxs};
+  line-height: 1;
 `;

@@ -12,7 +12,7 @@ export default function TextInput({
   value,
   placeholder,
   onChange,
-  maxLength = 5,
+  maxLength = 50,
 }: TextInputProps) {
   return (
     <TextInputStyled
