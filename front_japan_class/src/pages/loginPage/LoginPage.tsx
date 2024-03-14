@@ -6,7 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
 import { displayToast } from "../../helper/toast";
 import { useState } from "react";
-
 import Title from "./Title";
 import MessageIcon from "../../components/reusablesUi/MessageIcon";
 import Form from "../../components/reusablesUi/Form";
@@ -37,7 +36,7 @@ export default function LoginPage() {
         <Form
           value={pseudo}
           onChange={handleChange}
-          handleSubmit={handleSubmit}
+          onSubmit={handleSubmit}
           placeholder={"your pseudo..."}
           label={"enter"}
         />

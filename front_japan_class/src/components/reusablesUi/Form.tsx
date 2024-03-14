@@ -3,17 +3,23 @@ import { theme } from "../../theme/index";
 import Button from "./Button";
 import TextInput from "./TextInput";
 
-import "react-toastify/dist/ReactToastify.css";
+type FormProps = {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  placeholder: string;
+  label: string;
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+};
 
 export default function Form({
   value,
   onChange,
   placeholder,
   label,
-  handleSubmit,
-}) {
+  onSubmit,
+}: FormProps) {
   return (
-    <FormStyled onSubmit={handleSubmit}>
+    <FormStyled onSubmit={onSubmit}>
       <TextInput value={value} onChange={onChange} placeholder={placeholder} />
       <Button label={label} />
     </FormStyled>
