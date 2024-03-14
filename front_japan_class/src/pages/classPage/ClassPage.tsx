@@ -4,7 +4,7 @@ import Navbar from "./Navbar";
 import Form from "../../components/reusablesUi/Form";
 import { useState } from "react";
 import { displayToast } from "../../helper/toast";
-import { ToastContainer } from "react-toastify";
+
 import "react-toastify/dist/ReactToastify.css";
 
 const SENTENCES = [
@@ -76,18 +76,6 @@ export default function ClassPage() {
           </div>
         </div>
       </div>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover={false}
-        theme="light"
-      />
     </ClassPageStyled>
   );
 }

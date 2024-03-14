@@ -1,8 +1,7 @@
 import styled from "styled-components";
 import { theme } from "../../theme/index";
 import { FaArrowCircleDown } from "react-icons/fa";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+
 import { useNavigate } from "react-router-dom";
 import { displayToast } from "../../helper/toast";
 import { useState } from "react";
@@ -41,18 +40,6 @@ export default function LoginPage() {
           label={"enter"}
         />
       </div>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover={false}
-        theme="light"
-      />
     </LoginPageStyled>
   );
 }
