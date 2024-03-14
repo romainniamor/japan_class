@@ -3,19 +3,44 @@ import { theme } from "../../theme/index";
 import { FaArrowCircleDown } from "react-icons/fa";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
+import { displayToast } from "../../helper/toast";
+import { useState } from "react";
 
 import Title from "./Title";
 import MessageIcon from "../../components/reusablesUi/MessageIcon";
-import LoginForm from "./LoginForm";
+import Form from "../../components/reusablesUi/Form";
 
 export default function LoginPage() {
+  const [pseudo, setPseudo] = useState("");
+  const navigate = useNavigate();
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (pseudo.length) {
+      navigate(`/class/${pseudo}`);
+    }
+    displayToast(
+      "Oops! 🙈 It seems you forgot to enter your pseudo! Try Again and hit enter! 🚀"
+    );
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPseudo(e.target.value);
+  };
+
   return (
     <LoginPageStyled>
       <img className="bg" src="japan_class.png" alt="japan_class" />
       <div className="content">
         <Title />
         <MessageIcon label={"log to classroom"} icon={<FaArrowCircleDown />} />
-        <LoginForm />
+        <Form
+          value={pseudo}
+          onChange={handleChange}
+          handleSubmit={handleSubmit}
+          placeholder={"your pseudo..."}
+          label={"enter"}
+        />
       </div>
       <ToastContainer
         position="bottom-right"

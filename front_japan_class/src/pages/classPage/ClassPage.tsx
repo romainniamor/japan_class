@@ -7,6 +7,15 @@ export default function ClassPage() {
     <ClassPageStyled>
       <Navbar />
       <img className="bg" src="/japan_class.png" alt="japan_class" />
+      <div className="menu">
+        <form>
+          <h3>How to say in Japanese?</h3>
+          <span>
+            Type a sentence you want to say in Japanese and i will translate it
+            for you
+          </span>
+        </form>
+      </div>
     </ClassPageStyled>
   );
 }
@@ -27,20 +36,11 @@ const ClassPageStyled = styled.div`
     left: 0;
   }
 
-  /* .content {
-    z-index: 2;
-    border: 1px solid ${theme.colors.gray};
-    padding: 20px 30px 50px 30px;
-    background-color: ${theme.transparentBackground.light};
-    backdrop-filter: ${theme.blur.light};
-    border-radius: ${theme.borderRadius.extraRound};
-    max-width: 380px;
-    display: flex;
+  .menu {
+    flex: 1;
+    z-index: 3;
+    border: 3px solid blue;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    text-align: center;
-    gap: ${theme.spacing.s};
-    box-shadow: ${theme.shadows.subtle};
-  } */
+  }
 `;
