@@ -3,22 +3,24 @@ import { theme } from "../../theme/index";
 import { FaArrowCircleDown } from "react-icons/fa";
 
 import { useNavigate } from "react-router-dom";
-import { displayToast } from "../../helper/toast";
+import { displayToast } from "../../utils/toast";
 import { useState } from "react";
 import Title from "./Title";
 import MessageIcon from "../../components/reusablesUi/MessageIcon";
 import Form from "../../components/reusablesUi/Form";
+import { removeSpace } from "../../utils/removeSpace";
 
 export default function LoginPage() {
   const [pseudo, setPseudo] = useState("");
   const navigate = useNavigate();
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (pseudo.length) {
+    if (pseudo.length > 1) {
       navigate(`/class/${pseudo}`);
+      return;
     }
     displayToast(
-      "Oops! 🙈 It seems you forgot to enter your pseudo! Try Again and hit enter! 🚀"
+      "Oops! 🙈 It seems you forgot to enter your pseudo! ✌️ letters at least.  Try Again and hit enter! 🚀"
     );
   };
 
@@ -31,9 +33,9 @@ export default function LoginPage() {
       <img className="bg" src="japan_class.png" alt="japan_class" />
       <div className="content">
         <Title />
-        <MessageIcon label={"log to classroom"} icon={<FaArrowCircleDown />} />
+        <MessageIcon label={"log to access"} icon={<FaArrowCircleDown />} />
         <Form
-          value={pseudo}
+          value={removeSpace(pseudo)}
           onChange={handleChange}
           onSubmit={handleSubmit}
           placeholder={"your pseudo..."}

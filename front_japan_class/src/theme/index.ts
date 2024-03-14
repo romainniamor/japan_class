@@ -17,6 +17,7 @@ const colors = {
 
 //background with opacity
 const transparentBackground = {
+  extraLight: "rgba(209, 213, 219, .1)",
   light: "rgba(209, 213, 219, .3)",
   medium: "rgba(209, 213, 219, .4)",
 };
@@ -69,6 +70,7 @@ const weights = {
 };
 
 const blur = {
+  extraLight: "blur(1px)",
   light: "blur(3px)",
   medium: "blur(5px)",
   strong: "blur(10px)",
