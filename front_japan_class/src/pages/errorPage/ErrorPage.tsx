@@ -5,10 +5,11 @@ import { Link } from "react-router-dom";
 export default function ErrorPage() {
   return (
     <ErrorPageStyled>
-      <img src="freezer.png" alt="" />
-      <div className="message">
-        <span>404エラー（Not Found）</span>
-        <Link to="/">Go back to school</Link>
+      <div className="content">
+        <img src="/goku.png" alt="error" />
+        <Link to="/" className="link">
+          エラー Back to school
+        </Link>
       </div>
     </ErrorPageStyled>
   );
@@ -17,9 +18,25 @@ export default function ErrorPage() {
 const ErrorPageStyled = styled.div`
   width: 100%;
   height: 100%;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  padding-left: 50px;
   background-color: ${theme.colors.white};
+  display: flex;
+  align-items: center;
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: min-content;
+
+    .link {
+      margin-top: 10px;
+      text-align: center;
+      font-size: ${theme.fonts.P0};
+      color: ${theme.colors.dark};
+      text-decoration: underline;
+    }
+    img {
+      width: 300px;
+    }
+  }
 `;
