@@ -1,5 +1,5 @@
 const colors = {
-  dark: "#020617",
+  dark: "#1c1917",
   white: "#f1f5f9",
   slate: "#64748b",
   slateMedium: "#475569",
@@ -13,6 +13,8 @@ const colors = {
   greyDark: "#1f2937",
 
   green: "#34d399",
+
+  red: "#b91c1c",
 };
 
 //background with opacity
