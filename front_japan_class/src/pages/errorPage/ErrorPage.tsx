@@ -1,8 +1,17 @@
 import styled from "styled-components";
 import { theme } from "../../theme/index";
+import { Link } from "react-router-dom";
 
 export default function ErrorPage() {
-  return <ErrorPageStyled>ErrorPage</ErrorPageStyled>;
+  return (
+    <ErrorPageStyled>
+      <img src="freezer.png" alt="" />
+      <div className="message">
+        <span>404エラー（Not Found）</span>
+        <Link to="/">Go back to school</Link>
+      </div>
+    </ErrorPageStyled>
+  );
 }
 
 const ErrorPageStyled = styled.div`
