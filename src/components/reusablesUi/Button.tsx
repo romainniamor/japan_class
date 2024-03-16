@@ -1,10 +1,13 @@
 import { styled, css } from "styled-components";
 import { theme } from "../../theme/index";
 
-type ButtonProps = {
+type StyleTypes = {
+  version?: "normal" | "success";
+};
+
+type ButtonProps = StyleTypes & {
   label: string;
   onClick?: () => void;
-  version?: "normal" | "success";
 };
 
 export default function Button({
@@ -19,14 +22,14 @@ export default function Button({
   );
 }
 
-const ButtonStyled = styled.button`
+const ButtonStyled = styled.button<StyleTypes>`
   border-radius: 5px;
   border: 1px solid transparent;
   color: ${theme.colors.white};
   padding: 8px 15px;
   cursor: pointer;
   text-transform: capitalize;
-  ${(props) => extraStyle[props.version]};
+  ${(props) => props.version && extraStyle[props.version]}
 `;
 
 const extraStylePrimary = css`

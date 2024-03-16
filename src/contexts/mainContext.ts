@@ -1,5 +1,7 @@
 import { createContext } from "react";
+import { MainContextType } from "./mainContextType";
 
-export default createContext({
+export default createContext<MainContextType>({
   isVisible: false,
+  setIsVisible: () => {},
 });
