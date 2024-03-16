@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import { theme } from "../../theme/index";
+import { theme } from "../../../theme/index";
 import { Link } from "react-router-dom";
 import { IoMdExit } from "react-icons/io";
-import IconButton from "../../components/reusablesUi/IconButton";
+import IconButton from "../../../components/reusablesUi/IconButton";
 import Profile from "./Profile";
 import { useState } from "react";
 import { IoMdVolumeOff } from "react-icons/io";

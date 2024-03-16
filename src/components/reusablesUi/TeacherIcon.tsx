@@ -1,9 +1,10 @@
 import styled from "styled-components";
+import { theme } from "../../theme";
 
 export default function TeacherIcon() {
   return (
     <TeacherIconStyled className="teacher">
-      <img className="teacher-image" src="teacher.png" alt="teacher" />
+      <img className="teacher-image" src="/teacher.png" alt="teacher" />
     </TeacherIconStyled>
   );
 }
@@ -15,10 +16,10 @@ const TeacherIconStyled = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 60px;
-  height: 60px;
+  width: 100px;
+  height: 100px;
   border: 1px solid white;
-  box-shadow: 0 0 10px 0 wheat;
+  box-shadow: ${theme.shadows.subtle};
 
   .teacher-image {
     object-fit: cover;

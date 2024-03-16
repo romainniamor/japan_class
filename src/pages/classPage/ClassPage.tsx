@@ -1,30 +1,19 @@
 import styled from "styled-components";
 import { theme } from "../../theme/index";
-import Navbar from "./Navbar";
+import Navbar from "./navBar/Navbar";
 import Form from "../../components/reusablesUi/Form";
 import { useState } from "react";
 import { displayToast } from "../../utils/toast";
-import Response from "./Response";
+import Board from "./Board";
 import Request from "./Request";
-
+import { SENTENCES } from "../../fakeData/sentences";
+import Overlay from "./welcomeMessage/Overlay";
 import "react-toastify/dist/ReactToastify.css";
-
-const SENTENCES = [
-  {
-    id: "sddaafhfksahagafskakh",
-    sentence: "Hello, how are you?",
-    translation: "こんにちは、お元気ですか？",
-  },
-  {
-    id: "sqfqsbkjbkfsqsfq",
-    sentence: "I am good, thank you.",
-    translation: "元気です、ありがとう。",
-  },
-];
 
 export default function ClassPage() {
   const [sentence, setSentence] = useState("");
   const [sentences, setSentences] = useState(SENTENCES);
+  const [isVisible, setIsVisible] = useState(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -52,11 +41,13 @@ export default function ClassPage() {
     <ClassPageStyled>
       <Navbar />
       <img className="bg" src="/japan_class.png" alt="japan_class" />
+
       <div className="main-content">
-        <div className="board">
+        <Overlay />
+        {/* <div className="board">
           <div className="response-box">
             {sentences.map((sentence) => (
-              <Response sentence={sentence} key={sentence.id} />
+              <Board sentence={sentence} key={sentence.id} />
             ))}
           </div>
           <Request>
@@ -68,7 +59,7 @@ export default function ClassPage() {
               value={sentence}
             />
           </Request>
-        </div>
+        </div>*/}
       </div>
     </ClassPageStyled>
   );
@@ -97,6 +88,7 @@ const ClassPageStyled = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    height: 100%;
 
     .board {
       width: 450px;

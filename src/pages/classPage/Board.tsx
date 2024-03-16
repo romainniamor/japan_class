@@ -8,14 +8,14 @@ type ResponseProps = {
 
 export default function Response({ sentence }: ResponseProps) {
   return (
-    <ResponseStyled>
+    <BoardStyled>
       <span className="sentence">{sentence.sentence}</span>
       <span className="translation">{sentence.translation}</span>
-    </ResponseStyled>
+    </BoardStyled>
   );
 }
 
-const ResponseStyled = styled.div`
+const BoardStyled = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${theme.spacing.xs};
