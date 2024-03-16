@@ -9,6 +9,7 @@ import Request from "./Request";
 import { SENTENCES } from "../../fakeData/sentences";
 import Overlay from "./welcomeMessage/Overlay";
 import "react-toastify/dist/ReactToastify.css";
+import MainContext from "../../contexts/mainContext";
 
 export default function ClassPage() {
   const [sentence, setSentence] = useState("");
@@ -37,31 +38,41 @@ export default function ClassPage() {
     setSentence(e.target.value);
   };
 
-  return (
-    <ClassPageStyled>
-      <Navbar />
-      <img className="bg" src="/japan_class.png" alt="japan_class" />
+  const mainContextValue = {
+    isVisible,
+    setIsVisible,
+  };
 
-      <div className="main-content">
-        <Overlay />
-        {/* <div className="board">
-          <div className="response-box">
-            {sentences.map((sentence) => (
-              <Board sentence={sentence} key={sentence.id} />
-            ))}
-          </div>
-          <Request>
-            <Form
-              placeholder={"Type your sentence..."}
-              label={"ask"}
-              onSubmit={handleSubmit}
-              onChange={handleChange}
-              value={sentence}
-            />
-          </Request>
-        </div>*/}
-      </div>
-    </ClassPageStyled>
+  return (
+    <MainContext.Provider value={mainContextValue}>
+      <ClassPageStyled>
+        <Navbar />
+        <img className="bg" src="/japan_class.png" alt="japan_class" />
+
+        <div className="main-content">
+          {!isVisible ? (
+            <Overlay />
+          ) : (
+            <div className="board">
+              <div className="response-box">
+                {sentences.map((sentence) => (
+                  <Board sentence={sentence} key={sentence.id} />
+                ))}
+              </div>
+              <Request>
+                <Form
+                  placeholder={"Type your sentence..."}
+                  label={"ask"}
+                  onSubmit={handleSubmit}
+                  onChange={handleChange}
+                  value={sentence}
+                />
+              </Request>
+            </div>
+          )}
+        </div>
+      </ClassPageStyled>
+    </MainContext.Provider>
   );
 }
 
