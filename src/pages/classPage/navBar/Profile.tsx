@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import { theme } from "../../theme/index";
+import { theme } from "../../../theme/index";
 
 export default function Profile() {
   const { user } = useParams();
