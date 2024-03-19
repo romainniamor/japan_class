@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { theme } from "../../../theme/index";
 import { dataTranslatedType } from "../../../typescript/types";
 import WordBox from "./WordBox";
+import { fadeIn } from "../../../animations/animation";
 
 type dataProps = {
   data: dataTranslatedType;
@@ -33,6 +34,7 @@ const BoardStyled = styled.div`
   border-radius: ${theme.borderRadius.extraRound};
   text-align: left;
   text-transform: capitalize;
+  animation: ${fadeIn} 0.3s ease-in-out;
 
   .sentence {
     font-size: ${theme.fonts.P1};

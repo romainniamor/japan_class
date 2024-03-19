@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { theme } from "../../../theme/index";
 import TeacherBox from "./TeacherBox";
 import OverlayText from "./OverlayText";
+import { fadeIn } from "../../../animations/animation";
 
 export default function Overlay() {
   return (
@@ -22,18 +23,7 @@ const OverlayStyled = styled.div`
   padding: 20px 20px 30px 20px;
   align-items: center;
   border-radius: 10px;
-  animation: fade-in 0.3s ease-in-out;
+  animation: ${fadeIn} 0.3s ease-in-out;
   color: ${theme.colors.graySemiDark};
   box-shadow: ${theme.shadows.medium};
-
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-      transform: translateY(50px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0px);
-    }
-  }
 `;
