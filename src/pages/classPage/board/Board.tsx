@@ -42,9 +42,12 @@ const BoardStyled = styled.div`
     font-weight: ${theme.weights.medium};
   }
   .translation {
-    font-size: ${theme.fonts.P2};
+    font-size: ${theme.fonts.P3};
     color: ${theme.colors.white};
-    font-weight: ${theme.weights.semiBold};
+    letter-spacing: ${theme.spacing.xxs};
+    font-weight: ${theme.weights.light};
+
+    border-radius: ${theme.borderRadius.round};
   }
 
   hr {

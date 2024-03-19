@@ -6,44 +6,23 @@ import { useEffect, useState } from "react";
 import { displayToast } from "../../utils/toast";
 import Board from "./board/Board";
 import Request from "./Request";
-import { SENTENCES } from "../../fakeData/sentences";
+import { INITIAL_BOARD } from "../../fakeData/sentences";
 import Overlay from "./welcomeMessage/Overlay";
 import "react-toastify/dist/ReactToastify.css";
 import MainContext from "../../contexts/mainContext";
 
 export default function ClassPage() {
-  const [sentence, setSentence] = useState("");
-  const [sentences, setSentences] = useState(SENTENCES);
-  const [isVisible, setIsVisible] = useState(false);
-  const [initialMessage, setInitialMessage] = useState({
-    english: "",
-    japanese_translation: "",
-    japanese: "",
-  });
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!sentence) {
-      displayToast("👀 Oupsy!!! 🙈 Please type a sentence. ");
-      return;
-    }
-    const sentencesCopy = JSON.parse(JSON.stringify(sentences));
-    console.log("sentencesCopy", sentencesCopy);
-    const newSentence = {
-      id: crypto.randomUUID(),
-      sentence: sentence,
-      translation: "I am sorry, I can't translate it yet.",
-    };
-    console.log("newSentence", newSentence);
-    setSentences([newSentence, ...sentencesCopy]);
-    setSentence("");
-  };
+  const [message, setMessage] = useState("");
+  // const [sentences, setSentences] = useState(SENTENCES);
+  const [isVisible, setIsVisible] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+  const [board, setBoard] = useState(INITIAL_BOARD);
 
   const fetchInitialMessage = async () => {
     try {
       const response = await fetch("http://localhost:3000/api/messages");
       const res = await response.json();
-      setInitialMessage(res.data);
+      setBoard(res.data);
     } catch (error) {
       console.error("Error fetching initial message:", error);
     }
@@ -53,8 +32,31 @@ export default function ClassPage() {
     fetchInitialMessage();
   }, []);
 
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (!message) {
+      displayToast("👀 Oupsy!!! 🙈 Please type a sentence. ");
+      return;
+    }
+    try {
+      console.log("user-request", message);
+      setMessage("");
+      const data = await fetch("http://localhost:3000/api/chat", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ message }),
+      });
+      const resp = (await data.json()).messages;
+      setBoard(resp);
+    } catch (error) {
+      console.error("Error post message:", error);
+    }
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSentence(e.target.value);
+    setMessage(e.target.value);
   };
 
   const mainContextValue = {
@@ -74,7 +76,7 @@ export default function ClassPage() {
           ) : (
             <div className="board">
               <div className="response-box">
-                <Board data={initialMessage} />
+                <Board data={board} />
               </div>
               <Request>
                 <Form
@@ -82,7 +84,7 @@ export default function ClassPage() {
                   label={"ask"}
                   onSubmit={handleSubmit}
                   onChange={handleChange}
-                  value={sentence}
+                  value={message}
                 />
               </Request>
             </div>
