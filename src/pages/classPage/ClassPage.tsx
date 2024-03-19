@@ -50,8 +50,14 @@ export default function ClassPage() {
         },
         body: JSON.stringify({ message }),
       });
-      const resp = (await data.json()).messages;
-      setBoard(resp);
+      const responseData = await data.json();
+      const { messages, audioFilePath } = responseData;
+
+      const audio = new Audio(audioFilePath);
+      console.log("audio", audio);
+      audio.play();
+
+      setBoard(messages);
       setIsLoading(false);
     } catch (error) {
       console.error("Error post message:", error);
