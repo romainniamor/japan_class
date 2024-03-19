@@ -3,6 +3,8 @@ import { theme } from "../../../theme/index";
 import { dataTranslatedType } from "../../../typescript/types";
 import WordBox from "./WordBox";
 import { fadeIn } from "../../../animations/animation";
+import { IoPlay } from "react-icons/io5";
+import IconButton from "../../../components/reusablesUi/IconButton";
 
 type dataProps = {
   data: dataTranslatedType;
@@ -11,13 +13,20 @@ type dataProps = {
 export default function Board({ data }: dataProps) {
   return (
     <BoardStyled>
-      <span className="sentence">{data.english}</span>
-      <span className="translation">{data.japanese_translation}</span>
+      <div className="play-button">
+        <IconButton icon={<IoPlay />} onClick={() => alert("buttonplay")} />
+      </div>
+
+      <span className="sentence">{data.english && data.english}</span>
+      <span className="translation">
+        {data.japanese_translation && data.japanese_translation}
+      </span>
       <hr />
       <div className="words">
-        {data.japanese.map((element, index) => (
-          <WordBox word={element} key={index}></WordBox>
-        ))}
+        {data.japanese &&
+          data.japanese.map((element, index) => (
+            <WordBox word={element} key={index}></WordBox>
+          ))}
       </div>
     </BoardStyled>
   );
@@ -35,7 +44,14 @@ const BoardStyled = styled.div`
   text-align: left;
   text-transform: capitalize;
   animation: ${fadeIn} 0.3s ease-in-out;
+  position: relative;
 
+  .play-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: min-content;
+  }
   .sentence {
     font-size: ${theme.fonts.P1};
     color: ${theme.colors.grayLight};
@@ -49,12 +65,10 @@ const BoardStyled = styled.div`
 
     border-radius: ${theme.borderRadius.round};
   }
-
   hr {
     border: 1px solid ${theme.transparentBackground.extraLight};
     width: 100%;
   }
-
   .words {
     display: flex;
     gap: ${theme.spacing.xs};

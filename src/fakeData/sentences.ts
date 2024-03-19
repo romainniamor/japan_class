@@ -1,6 +1,6 @@
 import { dataTranslatedTypepe } from "../typescript/types";
 
-export const INITIAL_BOARD: dataTranslatedTypepe = {
+export const FAKE_MESSAGE: dataTranslatedTypepe = {
   english: "",
   japanese_translation: "",
   japanese: [

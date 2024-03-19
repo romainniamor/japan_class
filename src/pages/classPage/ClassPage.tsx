@@ -6,17 +6,18 @@ import { useEffect, useState } from "react";
 import { displayToast } from "../../utils/toast";
 import Board from "./board/Board";
 import Request from "./Request";
-import { INITIAL_BOARD } from "../../fakeData/sentences";
+import { FAKE_MESSAGE } from "../../fakeData/sentences";
 import Overlay from "./welcomeMessage/Overlay";
 import "react-toastify/dist/ReactToastify.css";
 import MainContext from "../../contexts/mainContext";
+import Loading from "../../components/reusablesUi/Loading";
+import StaticBackground from "../../components/reusablesUi/StaticBackground";
 
 export default function ClassPage() {
   const [message, setMessage] = useState("");
-  // const [sentences, setSentences] = useState(SENTENCES);
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [board, setBoard] = useState(INITIAL_BOARD);
+  const [board, setBoard] = useState(FAKE_MESSAGE);
 
   const fetchInitialMessage = async () => {
     try {
@@ -40,6 +41,7 @@ export default function ClassPage() {
     }
     try {
       console.log("user-request", message);
+      setIsLoading(true);
       setMessage("");
       const data = await fetch("http://localhost:3000/api/chat", {
         method: "POST",
@@ -50,6 +52,7 @@ export default function ClassPage() {
       });
       const resp = (await data.json()).messages;
       setBoard(resp);
+      setIsLoading(false);
     } catch (error) {
       console.error("Error post message:", error);
     }
@@ -68,7 +71,7 @@ export default function ClassPage() {
     <MainContext.Provider value={mainContextValue}>
       <ClassPageStyled>
         <Navbar />
-        <img className="bg" src="/japan_class.png" alt="japan_class" />
+        <StaticBackground />
 
         <div className="main-content">
           {!isVisible ? (
@@ -76,7 +79,7 @@ export default function ClassPage() {
           ) : (
             <div className="board">
               <div className="response-box">
-                <Board data={board} />
+                {isLoading ? <Loading /> : <Board data={board} />}
               </div>
               <Request>
                 <Form
@@ -102,15 +105,6 @@ const ClassPageStyled = styled.div`
   display: flex;
   flex-direction: column;
 
-  .bg {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    top: 0;
-    left: 0;
-  }
-
   .main-content {
     flex: 1;
     z-index: 3;
@@ -121,7 +115,7 @@ const ClassPageStyled = styled.div`
     height: 100%;
 
     .board {
-      width: 450px;
+      width: 480px;
       min-width: 380px;
       height: 100%;
       display: flex;
@@ -131,7 +125,7 @@ const ClassPageStyled = styled.div`
 
       .response-box {
         width: 100%;
-        height: 400px;
+        max-height: 530px;
         overflow-y: scroll;
         padding: 20px 0;
         display: flex;

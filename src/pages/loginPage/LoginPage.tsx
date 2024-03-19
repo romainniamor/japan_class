@@ -9,6 +9,7 @@ import Title from "./Title";
 import MessageIcon from "../../components/reusablesUi/MessageIcon";
 import Form from "../../components/reusablesUi/Form";
 import { removeSpace } from "../../utils/removeSpace";
+import StaticBackground from "../../components/reusablesUi/StaticBackground";
 
 export default function LoginPage() {
   const [pseudo, setPseudo] = useState("");
@@ -30,7 +31,7 @@ export default function LoginPage() {
 
   return (
     <LoginPageStyled>
-      <img className="bg" src="japan_class.png" alt="japan_class" />
+      <StaticBackground />
       <div className="content">
         <Title />
         <MessageIcon label={"log to access"} icon={<FaArrowCircleDown />} />
@@ -54,16 +55,6 @@ const LoginPageStyled = styled.div`
   justify-content: center;
   align-items: center;
   padding: 50px;
-
-  .bg {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    top: 0;
-    left: 0;
-  }
-
   .content {
     z-index: 2;
     border: 1px solid ${theme.colors.gray};
