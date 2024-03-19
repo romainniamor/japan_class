@@ -1,6 +1,6 @@
-import { responseType } from "../typescript/types";
+import { dataTranslatedTypepe } from "../typescript/types";
 
-export const SENTENCES: responseType[] = [
+export const SENTENCES: dataTranslatedTypepe[] = [
   {
     id: "sddaafhfksahagafskakh",
     sentence: "Hello, how are you?",

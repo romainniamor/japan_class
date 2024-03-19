@@ -23,6 +23,7 @@ const transparentBackground = {
   extraLight: "rgba(209, 213, 219, .1)",
   light: "rgba(209, 213, 219, .3)",
   medium: "rgba(209, 213, 219, .4)",
+  dark: "rgba(52, 211, 153, .3)",
 };
 
 const spacing = {

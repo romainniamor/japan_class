@@ -2,9 +2,9 @@ import styled from "styled-components";
 import { theme } from "../../theme/index";
 import Navbar from "./navBar/Navbar";
 import Form from "../../components/reusablesUi/Form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { displayToast } from "../../utils/toast";
-import Board from "./Board";
+import Board from "./board/Board";
 import Request from "./Request";
 import { SENTENCES } from "../../fakeData/sentences";
 import Overlay from "./welcomeMessage/Overlay";
@@ -15,6 +15,11 @@ export default function ClassPage() {
   const [sentence, setSentence] = useState("");
   const [sentences, setSentences] = useState(SENTENCES);
   const [isVisible, setIsVisible] = useState(false);
+  const [initialMessage, setInitialMessage] = useState({
+    english: "",
+    japanese_translation: "",
+    japanese: "",
+  });
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -33,6 +38,20 @@ export default function ClassPage() {
     setSentences([newSentence, ...sentencesCopy]);
     setSentence("");
   };
+
+  const fetchInitialMessage = async () => {
+    try {
+      const response = await fetch("http://localhost:3000/api/messages");
+      const res = await response.json();
+      setInitialMessage(res.data);
+    } catch (error) {
+      console.error("Error fetching initial message:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchInitialMessage();
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSentence(e.target.value);
@@ -55,9 +74,7 @@ export default function ClassPage() {
           ) : (
             <div className="board">
               <div className="response-box">
-                {sentences.map((sentence) => (
-                  <Board sentence={sentence} key={sentence.id} />
-                ))}
+                <Board data={initialMessage} />
               </div>
               <Request>
                 <Form
