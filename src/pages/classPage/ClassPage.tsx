@@ -12,12 +12,14 @@ import "react-toastify/dist/ReactToastify.css";
 import MainContext from "../../contexts/mainContext";
 import Loading from "../../components/reusablesUi/Loading";
 import StaticBackground from "../../components/reusablesUi/StaticBackground";
+import { createBlobUrl } from "../../utils/audioBlob";
 
 export default function ClassPage() {
   const [message, setMessage] = useState("");
   const [isVisible, setIsVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [board, setBoard] = useState(FAKE_MESSAGE);
+  const [audio, setAudio] = useState();
 
   const fetchInitialMessage = async () => {
     try {
@@ -35,6 +37,7 @@ export default function ClassPage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (!message) {
       displayToast("👀 Oupsy!!! 🙈 Please type a sentence. ");
       return;
@@ -51,16 +54,29 @@ export default function ClassPage() {
         body: JSON.stringify({ message }),
       });
       const responseData = await data.json();
-      const { messages, audioFilePath } = responseData;
-
-      const audio = new Audio(audioFilePath);
-      console.log("audio", audio);
-      audio.play();
+      const messages = responseData.messages;
 
       setBoard(messages);
       setIsLoading(false);
+      if (responseData.audio) {
+        const blob = responseData.audio;
+        //remember ===>data:[<mediatype>][;base64],<data>
+        const audioMessage = new Audio("data:audio/mp3;base64," + blob);
+        console.log("audio:", audioMessage);
+        setAudio(audioMessage);
+        audioMessage.play();
+      }
+      return;
     } catch (error) {
       console.error("Error post message:", error);
+    }
+  };
+
+  const handlePlay = () => {
+    if (audio) {
+      audio.playbackRate = 0.65; // decrease speed
+      // Jouez le son
+      audio.play();
     }
   };
 
@@ -77,9 +93,11 @@ export default function ClassPage() {
     <MainContext.Provider value={mainContextValue}>
       <ClassPageStyled>
         <Navbar />
-        <StaticBackground />
 
+        <StaticBackground />
         <div className="main-content">
+          {audio && <button onClick={handlePlay}>play</button>}
+
           {!isVisible ? (
             <Overlay />
           ) : (

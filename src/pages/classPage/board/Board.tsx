@@ -5,6 +5,7 @@ import WordBox from "./WordBox";
 import { fadeIn } from "../../../animations/animation";
 import { IoPlay } from "react-icons/io5";
 import IconButton from "../../../components/reusablesUi/IconButton";
+import { MdOutlineSlowMotionVideo } from "react-icons/md";
 
 type dataProps = {
   data: dataTranslatedType;
@@ -14,7 +15,10 @@ export default function Board({ data }: dataProps) {
   return (
     <BoardStyled>
       <div className="play-button">
-        <IconButton icon={<IoPlay />} onClick={() => alert("buttonplay")} />
+        <IconButton
+          icon={<MdOutlineSlowMotionVideo />}
+          onClick={() => alert("buttonplay")}
+        />
       </div>
 
       <span className="sentence">{data.english && data.english}</span>
