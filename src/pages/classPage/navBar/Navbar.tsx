@@ -7,18 +7,26 @@ import Profile from "./Profile";
 import { useState } from "react";
 import { IoMdVolumeOff } from "react-icons/io";
 import { IoVolumeHigh } from "react-icons/io5";
+import MainContext from "../../../contexts/mainContext";
+import { useContext } from "react";
+import { displayToast } from "../../../utils/toast";
 
 export default function Navbar() {
-  const [volume, setVolume] = useState(true);
+  const [isMuted, setIsMuted] = useState(false);
+
   const toggleVolume = () => {
-    setVolume(!volume);
+    setIsMuted(!isMuted);
+    if (isMuted) {
+      displayToast("V🤫lume is muted🤭!!!");
+    }
   };
+
   return (
     <NavbarStyled>
       <Profile />
       <div className="icon-box">
         <IconButton
-          icon={volume ? <IoVolumeHigh /> : <IoMdVolumeOff />}
+          icon={isMuted ? <IoVolumeHigh /> : <IoMdVolumeOff />}
           onClick={toggleVolume}
         />
         <Link to="/">
