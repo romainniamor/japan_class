@@ -10,7 +10,4 @@ export default createContext<MainContextType>({
 
   audio: new Audio(),
   setAudio: () => {},
-
-  userToken: 0,
-  setUserToken: () => {},
 });

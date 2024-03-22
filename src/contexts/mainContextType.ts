@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 
 export type MainContextType = {
   isMuted: boolean;
-  setUsMuted: Dispatch<SetStateAction<boolean>>;
+  setIsMuted: Dispatch<SetStateAction<boolean>>;
 
   isVisible: boolean;
   setIsVisible: Dispatch<SetStateAction<boolean>>;

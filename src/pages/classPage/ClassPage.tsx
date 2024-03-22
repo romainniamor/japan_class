@@ -18,7 +18,7 @@ export default function ClassPage() {
   const [isVisible, setIsVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [board, setBoard] = useState(FAKE_MESSAGE);
-  const [audio, setAudio] = useState();
+  const [audio, setAudio] = useState<HTMLAudioElement | null>();
   const [isMuted, setIsMuted] = useState(false);
 
   const fetchInitialMessage = async () => {
@@ -54,6 +54,11 @@ export default function ClassPage() {
       });
 
       const responseData = await data.json();
+      if (responseData.error) {
+        displayToast("Sorry i don't understand👀🤯!!! Please try again.");
+        setIsLoading(false);
+        return;
+      }
       const messages = responseData.messages;
 
       setBoard(messages);
