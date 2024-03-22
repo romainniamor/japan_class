@@ -3,23 +3,25 @@ import { theme } from "../../../theme/index";
 import { dataTranslatedType } from "../../../typescript/types";
 import WordBox from "./WordBox";
 import { fadeIn } from "../../../animations/animation";
-import { IoPlay } from "react-icons/io5";
 import IconButton from "../../../components/reusablesUi/IconButton";
 import { MdOutlineSlowMotionVideo } from "react-icons/md";
+import { useContext } from "react";
+import MainContext from "../../../contexts/mainContext";
 
 type dataProps = {
   data: dataTranslatedType;
+  onClick: () => void;
 };
 
-export default function Board({ data }: dataProps) {
+export default function Board({ data, onClick }: dataProps) {
+  const { audio } = useContext(MainContext);
   return (
     <BoardStyled>
-      <div className="play-button">
-        <IconButton
-          icon={<MdOutlineSlowMotionVideo />}
-          onClick={() => alert("buttonplay")}
-        />
-      </div>
+      {audio && (
+        <div className="play-button">
+          <IconButton icon={<MdOutlineSlowMotionVideo />} onClick={onClick} />
+        </div>
+      )}
 
       <span className="sentence">{data.english && data.english}</span>
       <span className="translation">

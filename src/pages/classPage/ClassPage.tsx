@@ -12,7 +12,6 @@ import "react-toastify/dist/ReactToastify.css";
 import MainContext from "../../contexts/mainContext";
 import Loading from "../../components/reusablesUi/Loading";
 import StaticBackground from "../../components/reusablesUi/StaticBackground";
-import { createBlobUrl } from "../../utils/audioBlob";
 
 export default function ClassPage() {
   const [message, setMessage] = useState("");
@@ -20,6 +19,7 @@ export default function ClassPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [board, setBoard] = useState(FAKE_MESSAGE);
   const [audio, setAudio] = useState();
+  const [isMuted, setIsMuted] = useState(false);
 
   const fetchInitialMessage = async () => {
     try {
@@ -43,7 +43,6 @@ export default function ClassPage() {
       return;
     }
     try {
-      console.log("user-request", message);
       setIsLoading(true);
       setMessage("");
       const data = await fetch("http://localhost:3000/api/chat", {
@@ -53,6 +52,7 @@ export default function ClassPage() {
         },
         body: JSON.stringify({ message }),
       });
+
       const responseData = await data.json();
       const messages = responseData.messages;
 
@@ -62,22 +62,22 @@ export default function ClassPage() {
         const blob = responseData.audio;
         //remember ===>data:[<mediatype>][;base64],<data>
         const audioMessage = new Audio("data:audio/mp3;base64," + blob);
-        console.log("audio:", audioMessage);
         setAudio(audioMessage);
-        audioMessage.play();
+
+        if (!isMuted) audioMessage.play();
+        return;
       }
-      return;
     } catch (error) {
       console.error("Error post message:", error);
     }
   };
 
-  const handlePlay = () => {
-    if (audio) {
-      audio.playbackRate = 0.65; // decrease speed
-      // Jouez le son
+  const handleSlowMotion = () => {
+    if (audio && !isMuted) {
+      audio.playbackRate = 0.7;
       audio.play();
     }
+    return;
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -87,6 +87,10 @@ export default function ClassPage() {
   const mainContextValue = {
     isVisible,
     setIsVisible,
+    audio,
+    setAudio,
+    isMuted,
+    setIsMuted,
   };
 
   return (
@@ -96,14 +100,16 @@ export default function ClassPage() {
 
         <StaticBackground />
         <div className="main-content">
-          {audio && <button onClick={handlePlay}>play</button>}
-
           {!isVisible ? (
             <Overlay />
           ) : (
             <div className="board">
               <div className="response-box">
-                {isLoading ? <Loading /> : <Board data={board} />}
+                {isLoading ? (
+                  <Loading />
+                ) : (
+                  <Board data={board} onClick={handleSlowMotion} />
+                )}
               </div>
               <Request>
                 <Form

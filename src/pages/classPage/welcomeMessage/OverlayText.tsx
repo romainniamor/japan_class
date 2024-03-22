@@ -1,10 +1,14 @@
 import styled from "styled-components";
 import { theme } from "../../../theme/index";
+import { useParams } from "react-router-dom";
 
 export default function OverlayText() {
+  const { user } = useParams();
   return (
     <OverlayTextStyled>
-      <span>こんにちは 😺(hello - Konnichiwa )</span>
+      <span>
+        こんにちは 😺(hello <span className="user">{user}</span> - Konnichiwa )
+      </span>
       <span>My name is Bulma (ブルマ).</span>
       <span>I'm your japanese seinsei😄.</span>
       <span>
@@ -25,5 +29,11 @@ const OverlayTextStyled = styled.div`
     font-size: 1.2em;
     color: ${theme.colors.graySemiDark};
     line-height: 1.3;
+  }
+
+  .user {
+    text-transform: capitalize;
+    color: ${theme.colors.green};
+    font-weight: ${theme.weights.semiBold};
   }
 `;

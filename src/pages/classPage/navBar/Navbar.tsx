@@ -4,20 +4,22 @@ import { Link } from "react-router-dom";
 import { IoMdExit } from "react-icons/io";
 import IconButton from "../../../components/reusablesUi/IconButton";
 import Profile from "./Profile";
-import { useState } from "react";
-import { IoMdVolumeOff } from "react-icons/io";
-import { IoVolumeHigh } from "react-icons/io5";
 import MainContext from "../../../contexts/mainContext";
 import { useContext } from "react";
 import { displayToast } from "../../../utils/toast";
+import { IoMdVolumeOff } from "react-icons/io";
+import { IoVolumeHigh } from "react-icons/io5";
 
 export default function Navbar() {
-  const [isMuted, setIsMuted] = useState(false);
+  const { isMuted, setIsMuted } = useContext(MainContext);
 
   const toggleVolume = () => {
-    setIsMuted(!isMuted);
-    if (isMuted) {
+    if (isMuted === false) {
+      setIsMuted(!isMuted);
       displayToast("V🤫lume is muted🤭!!!");
+    }
+    if (isMuted === true) {
+      setIsMuted(!isMuted);
     }
   };
 
@@ -26,7 +28,7 @@ export default function Navbar() {
       <Profile />
       <div className="icon-box">
         <IconButton
-          icon={isMuted ? <IoVolumeHigh /> : <IoMdVolumeOff />}
+          icon={isMuted ? <IoMdVolumeOff /> : <IoVolumeHigh />}
           onClick={toggleVolume}
         />
         <Link to="/">
