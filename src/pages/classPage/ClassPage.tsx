@@ -18,6 +18,8 @@ export default function ClassPage() {
   const [isVisible, setIsVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [board, setBoard] = useState(FAKE_MESSAGE);
+  const [audio, setAudio] = useState<HTMLAudioElement | null>();
+  const [isMuted, setIsMuted] = useState(false);
 
   const fetchInitialMessage = async () => {
     try {
@@ -35,12 +37,12 @@ export default function ClassPage() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (!message) {
       displayToast("👀 Oupsy!!! 🙈 Please type a sentence. ");
       return;
     }
     try {
-      console.log("user-request", message);
       setIsLoading(true);
       setMessage("");
       const data = await fetch("http://localhost:3000/api/chat", {
@@ -50,12 +52,37 @@ export default function ClassPage() {
         },
         body: JSON.stringify({ message }),
       });
-      const resp = (await data.json()).messages;
-      setBoard(resp);
+
+      const responseData = await data.json();
+      if (responseData.error) {
+        displayToast("Sorry i don't understand👀🤯!!! Please try again.");
+        setIsLoading(false);
+        return;
+      }
+      const messages = responseData.messages;
+
+      setBoard(messages);
       setIsLoading(false);
+      if (responseData.audio) {
+        const blob = responseData.audio;
+        //remember ===>data:[<mediatype>][;base64],<data>
+        const audioMessage = new Audio("data:audio/mp3;base64," + blob);
+        setAudio(audioMessage);
+
+        if (!isMuted) audioMessage.play();
+        return;
+      }
     } catch (error) {
       console.error("Error post message:", error);
     }
+  };
+
+  const handleSlowMotion = () => {
+    if (audio && !isMuted) {
+      audio.playbackRate = 0.7;
+      audio.play();
+    }
+    return;
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -65,21 +92,29 @@ export default function ClassPage() {
   const mainContextValue = {
     isVisible,
     setIsVisible,
+    audio,
+    setAudio,
+    isMuted,
+    setIsMuted,
   };
 
   return (
     <MainContext.Provider value={mainContextValue}>
       <ClassPageStyled>
         <Navbar />
-        <StaticBackground />
 
+        <StaticBackground />
         <div className="main-content">
           {!isVisible ? (
             <Overlay />
           ) : (
             <div className="board">
               <div className="response-box">
-                {isLoading ? <Loading /> : <Board data={board} />}
+                {isLoading ? (
+                  <Loading />
+                ) : (
+                  <Board data={board} onClick={handleSlowMotion} />
+                )}
               </div>
               <Request>
                 <Form

@@ -1,6 +1,6 @@
-import { dataTranslatedTypepe } from "../typescript/types";
+import { dataTranslatedType } from "../typescript/types";
 
-export const FAKE_MESSAGE: dataTranslatedTypepe = {
+export const FAKE_MESSAGE: dataTranslatedType = {
   english: "",
   japanese_translation: "",
   japanese: [

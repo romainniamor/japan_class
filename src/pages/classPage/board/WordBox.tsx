@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { theme } from "../../../theme/index";
+import { chunkType } from "../../../typescript/types";
 
 type wordProps = {
   word: chunkType;
