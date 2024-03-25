@@ -16,7 +16,7 @@ export default function Navbar() {
   const toggleVolume = () => {
     if (isMuted === false) {
       setIsMuted(!isMuted);
-      displayToast("V🤫lume is muted🤭!!!");
+      displayToast("Audio is muted🤭🤫!");
     }
     if (isMuted === true) {
       setIsMuted(!isMuted);

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { theme } from "../../theme/index";
 import Navbar from "./navBar/Navbar";
 import Form from "../../components/reusablesUi/Form";
@@ -6,20 +7,21 @@ import { useEffect, useState } from "react";
 import { displayToast } from "../../utils/toast";
 import Board from "./board/Board";
 import Request from "./Request";
-import { FAKE_MESSAGE } from "../../fakeData/sentences";
+import { FAKE_RESPONSE } from "../../fakeData/fakeResponse";
 import Overlay from "./welcomeMessage/Overlay";
 import "react-toastify/dist/ReactToastify.css";
 import MainContext from "../../contexts/mainContext";
-import Loading from "../../components/reusablesUi/Loading";
 import StaticBackground from "../../components/reusablesUi/StaticBackground";
+import { boardAnimation } from "../../animations/animation";
 
 export default function ClassPage() {
   const [message, setMessage] = useState("");
   const [isVisible, setIsVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [board, setBoard] = useState(FAKE_MESSAGE);
-  const [audio, setAudio] = useState<HTMLAudioElement | null>();
+  const [board, setBoard] = useState(FAKE_RESPONSE);
+  const [audio, setAudio] = useState<HTMLAudioElement | undefined>(undefined);
   const [isMuted, setIsMuted] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const fetchInitialMessage = async () => {
     try {
@@ -69,18 +71,22 @@ export default function ClassPage() {
         const audioMessage = new Audio("data:audio/mp3;base64," + blob);
         setAudio(audioMessage);
 
-        if (!isMuted) audioMessage.play();
-        return;
+        playAudio(audioMessage);
       }
     } catch (error) {
       console.error("Error post message:", error);
     }
   };
 
-  const handleSlowMotion = () => {
-    if (audio && !isMuted) {
-      audio.playbackRate = 0.7;
-      audio.play();
+  const playAudio = (message: HTMLAudioElement) => {
+    if (!isMuted) {
+      message.play();
+      message.onplay = () => {
+        setIsPlaying(true);
+      };
+      message.onpause = () => {
+        setIsPlaying(false);
+      };
     }
     return;
   };
@@ -96,25 +102,36 @@ export default function ClassPage() {
     setAudio,
     isMuted,
     setIsMuted,
+    isPlaying,
+    setIsPlaying,
+    isLoading,
+    setIsLoading,
   };
 
   return (
     <MainContext.Provider value={mainContextValue}>
       <ClassPageStyled>
         <Navbar />
-
         <StaticBackground />
         <div className="main-content">
           {!isVisible ? (
             <Overlay />
           ) : (
-            <div className="board">
+            <div className="col">
               <div className="response-box">
-                {isLoading ? (
-                  <Loading />
-                ) : (
-                  <Board data={board} onClick={handleSlowMotion} />
-                )}
+                <TransitionGroup>
+                  <CSSTransition
+                    classNames={"board"}
+                    key={board.english}
+                    appear={true}
+                    timeout={{ enter: 300, exit: 0 }}
+                  >
+                    <Board
+                      data={board}
+                      onClick={() => audio && playAudio(audio)}
+                    />
+                  </CSSTransition>
+                </TransitionGroup>
               </div>
               <Request>
                 <Form
@@ -149,7 +166,7 @@ const ClassPageStyled = styled.div`
     justify-content: center;
     height: 100%;
 
-    .board {
+    .col {
       width: 480px;
       min-width: 380px;
       height: 100%;
@@ -160,13 +177,14 @@ const ClassPageStyled = styled.div`
 
       .response-box {
         width: 100%;
-        max-height: 530px;
-        overflow-y: scroll;
         padding: 20px 0;
         display: flex;
+        max-height: 80%;
         flex-direction: column;
         gap: ${theme.spacing.xs};
+        overflow-y: hidden;
       }
     }
   }
+  ${boardAnimation}
 `;

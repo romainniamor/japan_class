@@ -5,10 +5,19 @@ import { ReactNode } from "react";
 type IconButtonProps = {
   onClick?: () => void;
   icon: ReactNode;
+  disabled?: boolean;
 };
 
-export default function IconButton({ icon, onClick }: IconButtonProps) {
-  return <IconButtonStyled onClick={onClick}>{icon}</IconButtonStyled>;
+export default function IconButton({
+  icon,
+  onClick,
+  disabled,
+}: IconButtonProps) {
+  return (
+    <IconButtonStyled onClick={onClick} disabled={disabled}>
+      {icon}
+    </IconButtonStyled>
+  );
 }
 
 const IconButtonStyled = styled.button`
@@ -26,5 +35,13 @@ const IconButtonStyled = styled.button`
   }
   &:active {
     background-color: ${theme.transparentBackground.light};
+  }
+
+  &:disabled {
+    color: ${theme.colors.grayLight};
+    cursor: auto;
+    &:hover {
+      background-color: ${theme.transparentBackground.light};
+    }
   }
 `;
