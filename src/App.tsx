@@ -1,7 +1,4 @@
 import "./App.css";
-// import { Canvas } from "@react-three/fiber";
-// import { OrbitControls } from "@react-three/drei";
-// import ImageBackground from "./components/ImageBackground";
 import LoginPage from "./pages/loginPage/LoginPage";
 import ClassPage from "./pages/classPage/ClassPage";
 import ErrorPage from "./pages/errorPage/ErrorPage";
@@ -30,12 +27,6 @@ function App() {
         theme="light"
       />
     </>
-
-    // <Canvas>
-    //   <ambientLight />
-    //   <OrbitControls />
-    //   <ImageBackground />
-    // </Canvas>
   );
 }
 
