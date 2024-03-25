@@ -1,13 +1,18 @@
 import styled from "styled-components";
 import { theme } from "../../theme/index";
+import Loading from "../../components/reusablesUi/Loading";
+import { useContext } from "react";
+import MainContext from "../../contexts/mainContext";
 
 type RequestProps = {
   children: JSX.Element;
 };
 
 export default function Request({ children }: RequestProps) {
+  const { isLoading } = useContext(MainContext);
   return (
     <RequestStyled>
+      <div className="loading"> {isLoading && <Loading />}</div>
       <h4 className="title">How to say in Japanese?</h4>
       <span className="text">
         Type a sentence you want to say in Japanese and i will translate it for
@@ -31,6 +36,13 @@ const RequestStyled = styled.div`
   box-shadow: ${theme.shadows.subtle};
   line-height: 1.6;
   width: 100%;
+  position: relative;
+
+  .loading {
+    position: absolute;
+    top: 0px;
+    right: 15px;
+  }
 
   .title {
     font-size: ${theme.fonts.P0};
