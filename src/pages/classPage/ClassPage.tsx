@@ -25,7 +25,9 @@ export default function ClassPage() {
 
   const fetchInitialMessage = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/messages");
+      const response = await fetch(
+        "https://api-japan-class.vercel.app/api/messages"
+      );
       const res = await response.json();
       setBoard(res.data);
     } catch (error) {
@@ -47,7 +49,7 @@ export default function ClassPage() {
     try {
       setIsLoading(true);
       setMessage("");
-      const data = await fetch("http://localhost:3000/api/chat", {
+      const data = await fetch("https://api-japan-class.vercel.app/api/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
