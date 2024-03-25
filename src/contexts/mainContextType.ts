@@ -7,6 +7,12 @@ export type MainContextType = {
   isVisible: boolean;
   setIsVisible: Dispatch<SetStateAction<boolean>>;
 
-  audio: HTMLAudioElement;
-  setAudio: Dispatch<SetStateAction<HTMLAudioElement>>;
+  audio: HTMLAudioElement | undefined;
+  setAudio: Dispatch<SetStateAction<HTMLAudioElement | undefined>>;
+
+  isPlaying: boolean;
+  setIsPlaying: Dispatch<SetStateAction<boolean>>;
+
+  isLoading: boolean;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
 };

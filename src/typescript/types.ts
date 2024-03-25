@@ -1,11 +1,13 @@
-export type dataTranslatedType = {
-  english: string;
-  japanese_translation: string;
-  japanese: chunkType[];
-};
-
 export type chunkType = {
   word: string;
+  reading: string;
   phonetic: string;
   translation: string;
+  grammar: string;
+};
+
+export type dataResponseType = {
+  english: string;
+  japanese: string;
+  chunks: chunkType[];
 };

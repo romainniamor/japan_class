@@ -5,9 +5,15 @@ export default createContext<MainContextType>({
   isMuted: false,
   setIsMuted: () => {},
 
-  isVisible: false,
+  isVisible: true,
   setIsVisible: () => {},
 
   audio: new Audio(),
   setAudio: () => {},
+
+  isPlaying: false,
+  setIsPlaying: () => {},
+
+  isLoading: false,
+  setIsLoading: () => {},
 });
