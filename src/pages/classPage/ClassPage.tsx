@@ -25,7 +25,9 @@ export default function ClassPage() {
 
   const fetchInitialMessage = async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/messages");
+      const response = await fetch(
+        "https://express-backend-seven.vercel.app/api/japan-class"
+      );
       const res = await response.json();
       setBoard(res.data);
     } catch (error) {
@@ -47,15 +49,19 @@ export default function ClassPage() {
     try {
       setIsLoading(true);
       setMessage("");
-      const data = await fetch("http://localhost:3000/api/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ message }),
-      });
+      const data = await fetch(
+        "https://express-backend-seven.vercel.app/api/japan-class/message",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ message }),
+        }
+      );
 
       const responseData = await data.json();
+
       if (responseData.error) {
         displayToast("Sorry i don't understand👀🤯!!! Please try again.");
         setIsLoading(false);
